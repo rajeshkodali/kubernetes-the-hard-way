@@ -158,7 +158,7 @@ clusterDNS:
   - "10.96.0.10"
 resolvConf: "/run/systemd/resolve/resolv.conf"
 runtimeRequestTimeout: "15m"
-failSwapOn: false
+failSwapOn: false # Can remove this, Now disabling swap on worker nodes
 EOF
 ```
 
