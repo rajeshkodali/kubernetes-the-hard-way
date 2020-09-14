@@ -24,10 +24,10 @@ Download the official Kubernetes release binaries:
 
 ```
 wget -q --show-progress --https-only --timestamping \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver" \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-controller-manager" \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-scheduler" \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl"
+  "https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/linux/amd64/kube-apiserver" \
+  "https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/linux/amd64/kube-controller-manager" \
+  "https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/linux/amd64/kube-scheduler" \
+  "https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/linux/amd64/kubectl"
 ```
 
 Reference: https://kubernetes.io/docs/setup/release/#server-binaries
@@ -57,7 +57,7 @@ Install the Kubernetes binaries:
 The instance internal IP address will be used to advertise the API Server to members of the cluster. Retrieve the internal IP address for the current compute instance:
 
 ```
-INTERNAL_IP=$(ip addr show enp0s8 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
+INTERNAL_IP=$(ip addr show eth1 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
 ```
 
 Verify it is set
@@ -92,14 +92,13 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --etcd-cafile=/var/lib/kubernetes/ca.crt \\
   --etcd-certfile=/var/lib/kubernetes/etcd-server.crt \\
   --etcd-keyfile=/var/lib/kubernetes/etcd-server.key \\
-  --etcd-servers=https://192.168.5.11:2379,https://192.168.5.12:2379 \\
+  --etcd-servers=https://192.168.5.11:2379,https://192.168.5.12:2379,https://192.168.5.13:2379 \\
   --event-ttl=1h \\
   --encryption-provider-config=/var/lib/kubernetes/encryption-config.yaml \\
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.crt \\
   --kubelet-client-certificate=/var/lib/kubernetes/kube-apiserver.crt \\
   --kubelet-client-key=/var/lib/kubernetes/kube-apiserver.key \\
   --kubelet-https=true \\
-  --runtime-config=api/all \\
   --service-account-key-file=/var/lib/kubernetes/service-account.crt \\
   --service-cluster-ip-range=10.96.0.0/24 \\
   --service-node-port-range=30000-32767 \\
@@ -240,6 +239,7 @@ backend kubernetes-master-nodes
     option tcp-check
     server master-1 192.168.5.11:6443 check fall 3 rise 2
     server master-2 192.168.5.12:6443 check fall 3 rise 2
+    server master-3 192.168.5.13:6443 check fall 3 rise 2
 EOF
 ```
 
@@ -260,12 +260,12 @@ curl  https://192.168.5.30:6443/version -k
 ```
 {
   "major": "1",
-  "minor": "13",
-  "gitVersion": "v1.13.0",
-  "gitCommit": "ddf47ac13c1a9483ea035a79cd7c10005ff21a6d",
+  "minor": "19",
+  "gitVersion": "v1.19.1",
+  "gitCommit": "206bcadf021e76c27513500ca24182692aabd17e",
   "gitTreeState": "clean",
-  "buildDate": "2018-12-03T20:56:12Z",
-  "goVersion": "go1.11.2",
+  "buildDate": "2020-09-09T11:18:22Z",
+  "goVersion": "go1.15",
   "compiler": "gc",
   "platform": "linux/amd64"
 }
