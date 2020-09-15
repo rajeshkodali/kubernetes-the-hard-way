@@ -16,8 +16,6 @@ The commands in this lab must be run on each controller instance: `master-1`, an
 
 Download the official etcd release binaries from the [coreos/etcd](https://github.com/coreos/etcd) GitHub project:
 ```
-
-```
 wget -q --show-progress --https-only --timestamping \
 "https://github.com/etcd-io/etcd/releases/download/v3.4.13/etcd-v3.4.13-linux-amd64.tar.gz"
 ```
