@@ -7,7 +7,7 @@ In this lab you will deploy the [DNS add-on](https://kubernetes.io/docs/concepts
 Deploy the `coredns` cluster add-on:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/mmumshad/kubernetes-the-hard-way/master/deployments/coredns.yaml
+kubectl apply -f https://raw.githubusercontent.com/rajeshkodali/kubernetes-the-hard-way/Upgrade-all-components-to-v1.19.1/deployments/coredns.yaml
 ```
 
 > output
@@ -75,3 +75,27 @@ Address 1: 10.96.0.1 kubernetes.default.svc.cluster.local
 ```
 
 Next: [Smoke Test](15-smoke-test.md)
+
+Notes:
+
+```
+vagrant@master-1:~$ kubectl logs nginx 
+Error from server: Get "https://worker-2:10250/containerLogs/default/nginx/nginx": remote error: tls: internal error
+vagrant@master-1:~$ kubectl get csr --all-namespaces
+NAME        AGE   SIGNERNAME                                    REQUESTOR                 CONDITION
+csr-6rw2z   46m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-72jzf   60s   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-97jrw   61m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-ftljk   16m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-pxmtp   31m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-wztcm   62m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:07401b   Approved,Issued
+```vagrant@master-1:~$ kubectl logs nginx 
+Error from server: Get "https://worker-2:10250/containerLogs/default/nginx/nginx": remote error: tls: internal error
+vagrant@master-1:~$ kubectl get csr --all-namespaces
+NAME        AGE   SIGNERNAME                                    REQUESTOR                 CONDITION
+csr-6rw2z   46m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-72jzf   60s   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-97jrw   61m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-ftljk   16m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-pxmtp   31m   kubernetes.io/kubelet-serving                 system:node:worker-2      Pending
+csr-wztcm   62m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:07401b   Approved,Issued
