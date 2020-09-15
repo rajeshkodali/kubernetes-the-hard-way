@@ -170,7 +170,7 @@ done
 Copy the appropriate `admin.kubeconfig`, `kube-controller-manager` and `kube-scheduler` kubeconfig files to each controller instance:
 
 ```
-for instance in master-1 master-2; do
+for instance in master-1 master-2 master-3; do
   scp admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig ${instance}:~/
 done
 ```
